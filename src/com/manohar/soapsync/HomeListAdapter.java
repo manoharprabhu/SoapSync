@@ -47,13 +47,20 @@ public class HomeListAdapter extends BaseAdapter {
 			System.out.println("ALLOCATED SPACE FOR THE FUCKING VIEW");
 			recycledView = inflater.inflate(R.layout.home_show_item_view, null);
 		}
+
 		((TextView) recycledView.findViewById(R.id.item_show_name))
 				.setText(this.tvShow.get(id).getShowName());
+		((TextView) recycledView.findViewById(R.id.item_show_name))
+		.setBackgroundColor(Utilities.pickColorAtIndex(id));
+
 		((TextView) recycledView.findViewById(R.id.home_text_summary))
 				.setText(this.tvShow.get(id).getSummary());
+		((TextView) recycledView.findViewById(R.id.home_text_summary))
+			.setTextColor(Utilities.pickColorAtIndex(id));
 		((ImageView) recycledView.findViewById(R.id.home_image_item))
 				.setImageBitmap(Utilities.getBitmapFromBase64(this.tvShow.get(
 						id).getShowThumbNail()));
+
 		return recycledView;
 	}
 

@@ -1,11 +1,19 @@
 package com.manohar.soapsync;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
+import java.util.Random;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -13,12 +21,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.util.Base64;
 
 public class Utilities {
 	private static Integer WINDOW_WIDTH = null;
 	private static Integer WINDOW_HEIGHT = null;
-
+	private static Random random = new Random(252352342434L);
+	public static final String WEBSERVICE_ENDPOINT = "http://manoharprabhu.github.io/SoapSync/showlist.json";
+    private static int[] colors = new int[]{Color.rgb(75, 14, 207),Color.rgb(207, 46, 14),Color.rgb(5, 207, 64),Color.rgb(191, 191, 0)};
+	
 	private static void loadScreenDimensions(Context context) {
 		WINDOW_WIDTH = context.getResources().getDisplayMetrics().widthPixels;
 		WINDOW_HEIGHT = context.getResources().getDisplayMetrics().heightPixels;
@@ -51,7 +63,7 @@ public class Utilities {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static List<TVShow> loadTVShowData(Context context){
+	public static List<TVShow> loadTVShowDataFromDisk(Context context){
 		try {
 		 FileInputStream inputStream = context.openFileInput("tvshows.srl");
 		 ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
@@ -65,7 +77,7 @@ public class Utilities {
 		}	
 	}
 	
-	public static void saveTVShowData(Context context,List<TVShow> tvShows){
+	public static void saveTVShowDataToDisk(Context context,List<TVShow> tvShows){
 		try {
 		FileOutputStream fileOutputStream = context.openFileOutput("tvshows.srl", Context.MODE_PRIVATE);
 		ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -75,6 +87,42 @@ public class Utilities {
 		} catch(Exception e){
 			System.out.println("Couldnt save shit to disk");
 		}
+	}
+	
+	public static String getJsonStringFromWebService(String url){
+		DefaultHttpClient client = new DefaultHttpClient();
+		HttpGet get = new HttpGet(url);
+
+		try {
+			HttpResponse response = client.execute(get);
+			InputStream stream = response.getEntity().getContent();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					stream));
+			StringBuilder builder = new StringBuilder();
+			String line;
+			while (true) {
+				line = reader.readLine();
+				if (line == null)
+					break;
+				builder.append(line);
+			}
+
+			return builder.toString();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+
+
+	}
+	
+	public static int pickRandomColor(){
+		return colors[random.nextInt(colors.length)];
+	}
+	
+	public static int pickColorAtIndex(int i){
+		return colors[i%colors.length];
 	}
 
 }

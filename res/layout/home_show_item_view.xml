@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical" 
+    android:orientation="vertical"
+    android:id="@+id/home_parent_layout" 
     android:background="@drawable/home_item_style"
     >
     <TextView android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
         android:textSize="25sp"
-        android:background="#FF2222"
         android:id="@+id/item_show_name"
         android:gravity="center"
         android:layout_gravity="center"
@@ -26,12 +26,11 @@
         android:layout_gravity="left"
         android:contentDescription="Show Thumb"
         android:id="@+id/home_image_item"
-        android:background="@drawable/home_item_style"
+        android:padding="4dp"
         />
     <TextView android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="4dp"
-        android:textColor="#FF2222"
         android:textStyle="bold"
         android:id="@+id/home_text_summary"/>
     </LinearLayout>
