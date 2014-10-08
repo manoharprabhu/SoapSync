@@ -9,6 +9,7 @@
     <TextView android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
+        android:background="#00C431"
         android:textSize="25sp"
         android:id="@+id/item_show_name"
         android:gravity="center"
@@ -28,12 +29,31 @@
         android:id="@+id/home_image_item"
         android:padding="4dp"
         />
+        
     <TextView android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="4dp"
         android:textStyle="bold"
         android:id="@+id/home_text_summary"/>
+
     </LinearLayout>
     
+     <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+    <LinearLayout android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2">
+        
+    </LinearLayout>
+    <Button android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_weight="1"
+        android:textColor="#FFFFFF"
+        android:id="@+id/item_check_it_out"
+        android:background="@drawable/check_it_out_style"
+        android:text="Check it out"/>    
+    </LinearLayout>
 
 </LinearLayout>

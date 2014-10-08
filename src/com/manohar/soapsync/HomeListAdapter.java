@@ -7,8 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 public class HomeListAdapter extends BaseAdapter {
 
@@ -51,15 +54,19 @@ public class HomeListAdapter extends BaseAdapter {
 		((TextView) recycledView.findViewById(R.id.item_show_name))
 				.setText(this.tvShow.get(id).getShowName());
 		((TextView) recycledView.findViewById(R.id.item_show_name))
-		.setBackgroundColor(Utilities.pickColorAtIndex(id));
+				.setBackgroundColor(Utilities.pickColorAtIndex(id));
 
 		((TextView) recycledView.findViewById(R.id.home_text_summary))
 				.setText(this.tvShow.get(id).getSummary());
 		((TextView) recycledView.findViewById(R.id.home_text_summary))
-			.setTextColor(Utilities.pickColorAtIndex(id));
-		((ImageView) recycledView.findViewById(R.id.home_image_item))
-				.setImageBitmap(Utilities.getBitmapFromBase64(this.tvShow.get(
-						id).getShowThumbNail()));
+				.setTextColor(Utilities.pickColorAtIndex(id));
+		
+		//((Button) recycledView.findViewById(R.id.item_check_it_out)).setBackgroundColor(Utilities.pickColorAtIndex(id));
+
+		Picasso.with(this.context)
+				.load(this.tvShow.get(id).getShowThumbNail())
+				.into(((ImageView) recycledView
+						.findViewById(R.id.home_image_item)));
 
 		return recycledView;
 	}

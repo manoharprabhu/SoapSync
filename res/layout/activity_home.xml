@@ -6,6 +6,7 @@
     tools:context="com.manohar.soapsync.HomeActivity"
     tools:ignore="MergeRootFrame" 
     android:orientation="vertical"
+    android:background="#CDCDCD"
     >
     
     
@@ -13,12 +14,12 @@
         android:layout_height="match_parent"
         android:id="@+id/gridView"
         android:numColumns="1"
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"
+        android:verticalSpacing="20dp"
+        android:horizontalSpacing="30dp"
     android:stretchMode="columnWidth"
     android:gravity="center"
     android:padding="5dp"
-    android:layout_margin="5dp"
+    android:layout_margin="10dp"
         >
         
         

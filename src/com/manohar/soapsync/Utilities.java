@@ -14,11 +14,8 @@ import java.util.Random;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONObject;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -29,7 +26,7 @@ public class Utilities {
 	private static Integer WINDOW_HEIGHT = null;
 	private static Random random = new Random(252352342434L);
 	public static final String WEBSERVICE_ENDPOINT = "http://manoharprabhu.github.io/SoapSync/showlist.json";
-    private static int[] colors = new int[]{Color.rgb(75, 14, 207),Color.rgb(207, 46, 14),Color.rgb(5, 207, 64),Color.rgb(191, 191, 0)};
+    private static int[] colors = new int[]{Color.rgb(59, 67, 77),Color.rgb(242, 10, 37),Color.rgb(237, 194, 0),Color.rgb(10, 112, 10),Color.rgb(38, 0, 252)};
 	
 	private static void loadScreenDimensions(Context context) {
 		WINDOW_WIDTH = context.getResources().getDisplayMetrics().widthPixels;
