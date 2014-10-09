@@ -1,59 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:id="@+id/home_parent_layout" 
     android:background="@drawable/home_item_style"
     >
+        <com.manohar.soapsync.SquareImageView
+             android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:contentDescription="Show Thumb"
+        android:id="@+id/home_image_item"
+        />
+    
     <TextView android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         android:background="#00C431"
-        android:textSize="25sp"
+        android:textSize="18dip"
         android:id="@+id/item_show_name"
         android:gravity="center"
-        android:layout_gravity="center"
+        android:layout_alignBottom="@id/home_image_item"
         android:paddingTop="2dp"
         android:paddingBottom="2dp"
         />
-    <LinearLayout android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
         
-    <ImageView android:layout_width="180dp"
-        android:layout_height="289dp"
-        android:scaleType="fitXY"
-        android:layout_gravity="left"
-        android:contentDescription="Show Thumb"
-        android:id="@+id/home_image_item"
-        android:padding="4dp"
-        />
-        
+
+    <!--      
     <TextView android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="invisible"
         android:layout_margin="4dp"
         android:textStyle="bold"
+        android:layout_below="@id/item_show_name"
         android:id="@+id/home_text_summary"/>
-
-    </LinearLayout>
-    
-     <LinearLayout android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-    <LinearLayout android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="2">
+-->
         
-    </LinearLayout>
-    <Button android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_weight="1"
-        android:textColor="#FFFFFF"
-        android:id="@+id/item_check_it_out"
-        android:background="@drawable/check_it_out_style"
-        android:text="Check it out"/>    
-    </LinearLayout>
-
-</LinearLayout>
+  
+</RelativeLayout>

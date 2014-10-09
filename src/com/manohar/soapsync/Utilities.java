@@ -22,11 +22,12 @@ import android.graphics.Color;
 import android.util.Base64;
 
 public class Utilities {
+	public static List<TVShow> tvShows = null;
 	private static Integer WINDOW_WIDTH = null;
 	private static Integer WINDOW_HEIGHT = null;
 	private static Random random = new Random(252352342434L);
 	public static final String WEBSERVICE_ENDPOINT = "http://manoharprabhu.github.io/SoapSync/showlist.json";
-    private static int[] colors = new int[]{Color.rgb(59, 67, 77),Color.rgb(242, 10, 37),Color.rgb(237, 194, 0),Color.rgb(10, 112, 10),Color.rgb(38, 0, 252)};
+    private static int[] colors = new int[]{Color.argb(180,59, 67, 77),Color.argb(180,242, 10, 37),Color.argb(180,237, 194, 0),Color.argb(180,10, 112, 10),Color.argb(180,38, 0, 252)};
 	
 	private static void loadScreenDimensions(Context context) {
 		WINDOW_WIDTH = context.getResources().getDisplayMetrics().widthPixels;

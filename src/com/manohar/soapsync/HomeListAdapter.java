@@ -9,9 +9,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 public class HomeListAdapter extends BaseAdapter {
 
@@ -45,10 +48,12 @@ public class HomeListAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int id, View recycledView, ViewGroup arg2) {
+	public View getView(int id, View recycledView, ViewGroup parent) {
 		if (recycledView == null) {
 			System.out.println("ALLOCATED SPACE FOR THE FUCKING VIEW");
+
 			recycledView = inflater.inflate(R.layout.home_show_item_view, null);
+			
 		}
 
 		((TextView) recycledView.findViewById(R.id.item_show_name))
@@ -56,16 +61,11 @@ public class HomeListAdapter extends BaseAdapter {
 		((TextView) recycledView.findViewById(R.id.item_show_name))
 				.setBackgroundColor(Utilities.pickColorAtIndex(id));
 
-		((TextView) recycledView.findViewById(R.id.home_text_summary))
-				.setText(this.tvShow.get(id).getSummary());
-		((TextView) recycledView.findViewById(R.id.home_text_summary))
-				.setTextColor(Utilities.pickColorAtIndex(id));
-		
-		//((Button) recycledView.findViewById(R.id.item_check_it_out)).setBackgroundColor(Utilities.pickColorAtIndex(id));
 
 		Picasso.with(this.context)
 				.load(this.tvShow.get(id).getShowThumbNail())
-				.into(((ImageView) recycledView
+				.placeholder(R.drawable.image_placeholder)
+				.into(((SquareImageView) recycledView
 						.findViewById(R.id.home_image_item)));
 
 		return recycledView;
