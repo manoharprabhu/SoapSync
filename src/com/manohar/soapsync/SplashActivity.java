@@ -7,17 +7,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.speech.tts.UtteranceProgressListener;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class SplashActivity extends Activity {
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,42 +27,46 @@ public class SplashActivity extends Activity {
 
 		Utilities.tvShows = Utilities.loadTVShowDataFromDisk(this);
 		if (Utilities.tvShows == null) {
-			new HomeListTask(this).execute();
+			(new DataLoadTask(this)).execute();
 		} else {
-			((TextView)findViewById(R.id.splash_load_status)).setText("Loading data from your phone.");
-			Thread transitionThread = new Thread(){
-				public void run(){
+			((TextView) findViewById(R.id.splash_load_status))
+					.setText("Loading data from your phone.");
+
+			Thread transitionThread = new Thread() {
+				public void run() {
 					try {
 						sleep(1500);
-						Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+						Intent intent = new Intent(getBaseContext(),
+								HomeActivity.class);
 						SplashActivity.this.finish();
 						startActivity(intent);
 					} catch (InterruptedException e) {
-						
+
 					}
-					
+
 				}
 			};
 			transitionThread.start();
-			
 		}
 
 	}
 
 }
 
-class HomeListTask extends AsyncTask<Void, Void, Void> {
+class DataLoadTask extends AsyncTask<Void, Void, Void> {
 
 	private Context context;
 	private String result;
 
-	public HomeListTask(Context context) {
+	public DataLoadTask(Context context) {
 		this.context = context;
 	}
 
 	@Override
 	protected void onPreExecute() {
-		((TextView)((SplashActivity) this.context).findViewById(R.id.splash_load_status)).setText("Going online to find data.");
+		((TextView) ((SplashActivity) this.context)
+				.findViewById(R.id.splash_load_status))
+				.setText("Going online to find data.");
 	}
 
 	@Override
@@ -77,8 +79,12 @@ class HomeListTask extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected void onPostExecute(Void v) {
 		if (this.result == null) {
-			((TextView)((SplashActivity) this.context).findViewById(R.id.splash_load_status)).setText("Problem with network.Couldn't load data.");
-			(((SplashActivity)this.context).findViewById(R.id.splash_load_progress)).setVisibility(View.INVISIBLE);
+			((TextView) ((SplashActivity) this.context)
+					.findViewById(R.id.splash_load_status))
+					.setText("Problem with network.Couldn't load data.");
+			(((SplashActivity) this.context)
+					.findViewById(R.id.splash_load_progress))
+					.setVisibility(View.INVISIBLE);
 			return;
 		}
 		try {
@@ -96,7 +102,7 @@ class HomeListTask extends AsyncTask<Void, Void, Void> {
 				Utilities.tvShows.add(item);
 			}
 			Utilities.saveTVShowDataToDisk(this.context, Utilities.tvShows);
-			
+
 			Intent intent = new Intent(((SplashActivity) this.context),
 					HomeActivity.class);
 			((SplashActivity) this.context).finish();

@@ -15,11 +15,16 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.util.Base64;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
 public class Utilities {
 	public static List<TVShow> tvShows = null;
@@ -67,10 +72,8 @@ public class Utilities {
 		 ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 		List<TVShow> tvShows = (List<TVShow>)objectInputStream.readObject();
 		 objectInputStream.close();
-		 System.out.println("Loaded the shit fron filesystem");
 		 return tvShows;
 		} catch(Exception e){
-			System.out.println("Couldn't load shit");
 			return null;
 		}	
 	}
@@ -81,9 +84,8 @@ public class Utilities {
 		ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 		objectOutputStream.writeObject(tvShows);
 		objectOutputStream.close();
-		System.out.println("Wrote the shit to filesystem");
 		} catch(Exception e){
-			System.out.println("Couldnt save shit to disk");
+		
 		}
 	}
 	
@@ -121,6 +123,22 @@ public class Utilities {
 	
 	public static int pickColorAtIndex(int i){
 		return colors[i%colors.length];
+	}
+	
+	public static void setCustomActionBar(Context context,String title){
+		View view = Utilities.getCustomActionBarView(context,title);
+		ActionBar actionBar = ((Activity)context).getActionBar();
+		actionBar.setDisplayShowHomeEnabled(false);
+		actionBar.setDisplayShowTitleEnabled(false);
+		actionBar.setDisplayShowCustomEnabled(true);
+		actionBar.setCustomView(view);
+	}
+	
+	private static View getCustomActionBarView(Context context,String title){
+		LayoutInflater layoutInflater = LayoutInflater.from(context);
+		View view = layoutInflater.inflate(R.layout.custom_action_bar, null);
+		((TextView)view.findViewById(R.id.custom_actionbar_title)).setText(title);
+		return view;
 	}
 
 }

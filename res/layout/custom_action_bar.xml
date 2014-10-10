@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#0B8CB8">
+	
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:id="@+id/custom_actionbar_title"/>
+
+</RelativeLayout>
