@@ -20,8 +20,8 @@ public class SplashActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		overridePendingTransition(R.anim.enter_in, R.anim.enter_out);
 		setContentView(R.layout.activity_splash);
-
 		((TextView) findViewById(R.id.splash_main_name)).setTextSize(Utilities
 				.getScreenWidth(this) / 12);
 
@@ -107,6 +107,7 @@ class DataLoadTask extends AsyncTask<Void, Void, Void> {
 					HomeActivity.class);
 			((SplashActivity) this.context).finish();
 			((SplashActivity) this.context).startActivity(intent);
+
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

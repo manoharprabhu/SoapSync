@@ -14,6 +14,7 @@ public class HomeActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		overridePendingTransition(R.anim.enter_in, R.anim.enter_out);
 		setContentView(R.layout.activity_home);
 		Utilities.setCustomActionBar(this, "Home");
 		
