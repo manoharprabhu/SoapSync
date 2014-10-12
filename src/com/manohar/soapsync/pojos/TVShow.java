@@ -1,7 +1,9 @@
-package com.manohar.soapsync;
+package com.manohar.soapsync.pojos;
 
 import java.io.Serializable;
 import java.util.List;
+
+import android.graphics.Color;
 
 public class TVShow implements Serializable {
 
@@ -13,6 +15,17 @@ public class TVShow implements Serializable {
 	private String showThumbNail;
 	private int showId;
 	private String summary;
+	private int showColor;
+	
+
+	public int getShowColor() {
+		return showColor;
+	}
+
+	public void setShowColor(int showColor) {
+		this.showColor = showColor;
+	}
+
 	private List<Season> seasons;
 
 	public String getSummary() {
@@ -57,7 +70,7 @@ public class TVShow implements Serializable {
 
 	@Override
 	public String toString() {
-		return this.showId + " " + this.showName;
+		return this.showId + " " + this.showName + " " + this.seasons.toString();
 
 	}
 

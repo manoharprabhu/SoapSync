@@ -6,7 +6,7 @@
     android:id="@+id/home_parent_layout" 
     android:background="@drawable/home_item_style"
     >
-        <com.manohar.soapsync.SquareImageView
+        <com.manohar.soapsync.customviews.SquareImageView
              android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"

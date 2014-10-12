@@ -15,6 +15,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.manohar.soapsync.pojos.TVShow;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.manohar.soapsync;
+package com.manohar.soapsync.customviews;
 
 import android.content.Context;
 import android.util.AttributeSet;

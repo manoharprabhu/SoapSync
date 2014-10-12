@@ -1,6 +1,13 @@
-package com.manohar.soapsync;
+package com.manohar.soapsync.activities;
 
 import org.json.JSONException;
+
+import com.manohar.soapsync.R;
+import com.manohar.soapsync.Utilities;
+import com.manohar.soapsync.R.anim;
+import com.manohar.soapsync.R.id;
+import com.manohar.soapsync.R.layout;
+import com.manohar.soapsync.adaoters.TVShowListAdapter;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -38,7 +45,7 @@ public class HomeActivity extends Activity {
 
 	
 	public void populateScreen() throws JSONException {
-		gridView.setAdapter(new HomeListAdapter(Utilities.tvShows, this));
+		gridView.setAdapter(new TVShowListAdapter(Utilities.tvShows, this));
 	}
 
 }
