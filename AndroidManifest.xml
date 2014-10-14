@@ -22,7 +22,7 @@
             android:label="@string/title_activity_home" >
         </activity>
         <activity
-            android:name="com.manohar.soapsync.activities.SplashActivity" 
+            android:name="com.manohar.soapsync.activities.SplashActivity"
             android:label="@string/title_activity_splash"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
@@ -34,6 +34,10 @@
         <activity
             android:name="com.manohar.soapsync.activities.SeasonActivity"
             android:label="@string/title_activity_show_detail" >
+        </activity>
+        <activity
+            android:name="com.manohar.soapsync.activities.EpisodeActivity"
+            android:label="@string/title_activity_episode" >
         </activity>
     </application>
 

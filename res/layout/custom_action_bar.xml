@@ -12,5 +12,12 @@
         android:gravity="center"
         android:textStyle="bold"
         android:id="@+id/custom_actionbar_title"/>
+    
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#0A82AB"
+        android:layout_alignBottom="@id/custom_actionbar_title">
+        
+    </LinearLayout>
 
 </RelativeLayout>

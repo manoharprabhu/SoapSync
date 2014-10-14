@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import com.manohar.soapsync.R;
 import com.manohar.soapsync.Utilities;
-import com.manohar.soapsync.adaoters.SeasonsAdapter;
+import com.manohar.soapsync.adapters.SeasonsAdapter;
 import com.squareup.picasso.Picasso;
 
 public class SeasonActivity extends Activity {

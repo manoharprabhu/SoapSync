@@ -1,4 +1,4 @@
-package com.manohar.soapsync.adaoters;
+package com.manohar.soapsync.adapters;
 
 import java.util.List;
 

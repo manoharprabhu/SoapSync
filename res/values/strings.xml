@@ -7,5 +7,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_splash">Soap Sync</string>
     <string name="title_activity_show_detail">ShowDetailActivity</string>
+    <string name="title_activity_episode">EpisodeActivity</string>
 
 </resources>
