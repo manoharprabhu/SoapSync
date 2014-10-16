@@ -1,7 +1,9 @@
 package com.manohar.soapsync;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,8 +17,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.manohar.soapsync.pojos.TVShow;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
@@ -27,9 +27,15 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.manohar.soapsync.pojos.Episode;
+import com.manohar.soapsync.pojos.Season;
+import com.manohar.soapsync.pojos.TVShow;
 
 public class Utilities {
 	public static List<TVShow> tvShows = null;
+	
 	private static Integer WINDOW_WIDTH = null;
 	private static Integer WINDOW_HEIGHT = null;
 	private static Random random = new Random(252352342434L);
@@ -80,12 +86,49 @@ public class Utilities {
 		}	
 	}
 	
-	public static void saveTVShowDataToDisk(Context context,List<TVShow> tvShows){
+	public static void overwriteTVShowDataOnDisk(Context context,List<TVShow> tvShow){
+		
 		try {
-		FileOutputStream fileOutputStream = context.openFileOutput("tvshows.srl", Context.MODE_PRIVATE);
+			FileOutputStream fileOutputStream = context.openFileOutput("tvshows.srl", Context.MODE_PRIVATE);
 		ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-		objectOutputStream.writeObject(tvShows);
+		objectOutputStream.writeObject(tvShow);
 		objectOutputStream.close();
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void saveTVShowDataToDisk(Context context,List<TVShow> newShowData){
+		try {
+		
+		File file = context.getFileStreamPath("tvshows.srl");
+		if(file.exists()) {
+		
+			List<TVShow> oldShowData = loadTVShowDataFromDisk(context);
+			 
+			 for(int i=0;i<oldShowData.size(); i++){
+				 for(int j=0;j<oldShowData.get(i).getSeasons().size() ; j++ ){
+					 for(int k=0;k<oldShowData.get(i).getSeasons().get(j).getEpisodes().size();k++){
+						 newShowData.get(i).getSeasons().get(j).getEpisodes().get(k).setEpisodeWatched(
+								 oldShowData.get(i).getSeasons().get(j).getEpisodes().get(k).isEpisodeWatched()
+						 );
+						 newShowData.get(i).getSeasons().get(j).getEpisodes().get(k).setPlotVisible(
+								 oldShowData.get(i).getSeasons().get(j).getEpisodes().get(k).isPlotVisible()
+						 );
+						  
+					 }
+				 }
+			 }
+			 
+		}
+
+	 	FileOutputStream fileOutputStream = context.openFileOutput("tvshows.srl", Context.MODE_PRIVATE);
+		ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+		objectOutputStream.writeObject(newShowData);
+		objectOutputStream.close();
+		
 		} catch(Exception e){
 		
 		}

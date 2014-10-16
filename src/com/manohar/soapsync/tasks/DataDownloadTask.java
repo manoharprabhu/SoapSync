@@ -2,7 +2,9 @@ package com.manohar.soapsync.tasks;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,9 +39,11 @@ public class DataDownloadTask extends AsyncTask<Void, Void, Void> {
 
 	@Override
 	protected void onPreExecute() {
+		if(this.context instanceof SplashActivity) {
 		((TextView) ((SplashActivity) this.context)
 				.findViewById(R.id.splash_load_status))
 				.setText("Going online to find data.");
+		}
 	}
 
 	@Override
@@ -51,7 +55,7 @@ public class DataDownloadTask extends AsyncTask<Void, Void, Void> {
 
 	@Override
 	protected void onPostExecute(Void v) {
-		if (this.result == null) {
+		if (this.result == null && this.context instanceof SplashActivity) {
 			((TextView) ((SplashActivity) this.context)
 					.findViewById(R.id.splash_load_status))
 					.setText("Problem with network.Couldn't load data.");
@@ -104,8 +108,7 @@ public class DataDownloadTask extends AsyncTask<Void, Void, Void> {
 						
 					}
 					Collections.sort(season.getEpisodes(),new EpisodeComparator());
-					tvShow.getSeasons().add(season);
-					
+					tvShow.getSeasons().add(season);					
 				}
 				Collections.sort(tvShow.getSeasons(),new SeasonComparator());
 				Utilities.tvShows.add(tvShow);
@@ -113,10 +116,12 @@ public class DataDownloadTask extends AsyncTask<Void, Void, Void> {
 			Collections.sort(Utilities.tvShows,new TVShowComparator());
 			Utilities.saveTVShowDataToDisk(this.context, Utilities.tvShows);
 
-			Intent intent = new Intent(((SplashActivity) this.context),
-					HomeActivity.class);
-			((SplashActivity) this.context).finish();
-			((SplashActivity) this.context).startActivity(intent);
+			if(this.context instanceof SplashActivity) {
+				Intent intent = new Intent(((SplashActivity) this.context),
+						HomeActivity.class);
+				((SplashActivity) this.context).finish();
+				((SplashActivity) this.context).startActivity(intent);
+			}
 
 		} catch (JSONException e) {
 			e.printStackTrace();

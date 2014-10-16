@@ -22,9 +22,7 @@ public class EpisodeActivity extends Activity {
 		setContentView(R.layout.activity_episode);
 		selectedShow = Integer.valueOf(getIntent().getExtras().get("SHOW_ID").toString());
 		SelectedSeason = Integer.valueOf(getIntent().getExtras().get("SEASON_ID").toString());
-		
-		gridView = (GridView)findViewById(R.id.episode_grid);
-		
+		gridView = (GridView)findViewById(R.id.episode_grid);	
 		gridView.setAdapter(new EpisodeAdapter(this, selectedShow, SelectedSeason));
 
 	}
@@ -36,11 +34,7 @@ public class EpisodeActivity extends Activity {
 		
 	}
 	
-	@Override
-	public void onStop(){
-		super.onStop();
-		Utilities.saveTVShowDataToDisk(this, Utilities.tvShows);
-	}
+	
 
 
 }

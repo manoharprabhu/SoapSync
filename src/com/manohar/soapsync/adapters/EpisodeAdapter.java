@@ -93,6 +93,7 @@ public class EpisodeAdapter extends BaseAdapter {
 						Utilities.tvShows.get(selectedShow).getSeasons()
 								.get(SelectedSeason).getEpisodes().get(id)
 								.setPlotVisible(true);
+						Utilities.overwriteTVShowDataOnDisk(EpisodeAdapter.this.context, Utilities.tvShows);
 					}
 				});
 
@@ -105,6 +106,7 @@ public class EpisodeAdapter extends BaseAdapter {
 						Utilities.tvShows.get(selectedShow).getSeasons()
 								.get(SelectedSeason).getEpisodes().get(id)
 								.setEpisodeWatched(((CheckBox) v).isChecked());
+						Utilities.overwriteTVShowDataOnDisk(EpisodeAdapter.this.context, Utilities.tvShows);
 					}
 				});
 
