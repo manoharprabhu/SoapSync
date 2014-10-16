@@ -3,7 +3,6 @@ package com.manohar.soapsync.activities;
 import org.json.JSONException;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.widget.GridView;
 

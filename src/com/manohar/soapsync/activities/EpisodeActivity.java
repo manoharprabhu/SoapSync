@@ -35,6 +35,12 @@ public class EpisodeActivity extends Activity {
 		overridePendingTransition(R.anim.exit_in, R.anim.exit_out);
 		
 	}
+	
+	@Override
+	public void onStop(){
+		super.onStop();
+		Utilities.saveTVShowDataToDisk(this, Utilities.tvShows);
+	}
 
 
 }

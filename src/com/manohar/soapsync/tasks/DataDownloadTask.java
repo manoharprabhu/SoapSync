@@ -94,11 +94,11 @@ public class DataDownloadTask extends AsyncTask<Void, Void, Void> {
 						String episodeKey = episodesIterator.next();
 						
 						JSONObject episodeJson = (JSONObject)episodes.get(episodeKey);
-						String plot = episodeJson.getString("Plot");
 						
 						Episode episode = new Episode();
 						episode.setEpisodeId(Integer.parseInt(episodeKey));
-						episode.setPlot(plot);
+						episode.setPlot(episodeJson.getString("Plot"));
+						episode.setEpisodeName(episodeJson.getString("EpisodeName"));
 						
 						season.getEpisodes().add(episode);
 						
