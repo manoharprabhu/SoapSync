@@ -2,18 +2,27 @@ package com.manohar.soapsync.tasks;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.AsyncTask;
+import android.view.View;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.TextView;
+
 import com.manohar.soapsync.R;
 import com.manohar.soapsync.Utilities;
-import com.manohar.soapsync.R.id;
 import com.manohar.soapsync.activities.HomeActivity;
 import com.manohar.soapsync.activities.SplashActivity;
+import com.manohar.soapsync.adapters.EpisodeAdapter;
+import com.manohar.soapsync.adapters.SeasonsAdapter;
+import com.manohar.soapsync.adapters.TVShowListAdapter;
 import com.manohar.soapsync.comparators.EpisodeComparator;
 import com.manohar.soapsync.comparators.SeasonComparator;
 import com.manohar.soapsync.comparators.TVShowComparator;
@@ -21,20 +30,16 @@ import com.manohar.soapsync.pojos.Episode;
 import com.manohar.soapsync.pojos.Season;
 import com.manohar.soapsync.pojos.TVShow;
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.AsyncTask;
-import android.view.View;
-import android.widget.TextView;
-
 public class DataDownloadTask extends AsyncTask<Void, Void, Void> {
 
 	private Context context;
 	private String result;
-
-	public DataDownloadTask(Context context) {
+	private BaseAdapter adapter;
+	private GridView gridView;
+	public DataDownloadTask(Context context,BaseAdapter adapter,GridView gridView) {
 		this.context = context;
+		this.adapter = adapter;
+		this.gridView = gridView;
 	}
 
 	@Override
@@ -116,6 +121,15 @@ public class DataDownloadTask extends AsyncTask<Void, Void, Void> {
 			Collections.sort(Utilities.tvShows,new TVShowComparator());
 			Utilities.saveTVShowDataToDisk(this.context, Utilities.tvShows);
 
+			if(this.adapter != null ) {
+				System.out.println("----------------------Redrew the grid view");
+				if(this.adapter instanceof TVShowListAdapter) {
+					this.adapter = new TVShowListAdapter(Utilities.tvShows, this.context);
+				}
+				this.gridView.invalidateViews();
+				this.gridView.setAdapter(this.adapter);
+			}
+			
 			if(this.context instanceof SplashActivity) {
 				Intent intent = new Intent(((SplashActivity) this.context),
 						HomeActivity.class);

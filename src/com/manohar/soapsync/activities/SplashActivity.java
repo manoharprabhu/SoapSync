@@ -1,27 +1,13 @@
 package com.manohar.soapsync.activities;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.TextView;
 
 import com.manohar.soapsync.R;
 import com.manohar.soapsync.Utilities;
-import com.manohar.soapsync.R.anim;
-import com.manohar.soapsync.R.id;
-import com.manohar.soapsync.R.layout;
 import com.manohar.soapsync.tasks.DataDownloadTask;
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
 
 public class SplashActivity extends Activity {
 
@@ -36,7 +22,7 @@ public class SplashActivity extends Activity {
 
 		Utilities.tvShows = Utilities.loadTVShowDataFromDisk(this);
 		if (Utilities.tvShows == null) {
-			(new DataDownloadTask(this)).execute();
+			(new DataDownloadTask(this,null,null)).execute();
 		} else {
 			((TextView) findViewById(R.id.splash_load_status))
 					.setText("Loading data from your phone.");

@@ -77,7 +77,6 @@ public class TVShowListAdapter extends BaseAdapter {
 			@Override
 			public boolean onTouch(View targetView, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_UP) {
-					(new DataDownloadTask(TVShowListAdapter.this.context)).execute();
 					Intent intent = new Intent(TVShowListAdapter.this.context,SeasonActivity.class);
 					intent.putExtra("SHOW_ID", id);
 					TVShowListAdapter.this.context.startActivity(intent);

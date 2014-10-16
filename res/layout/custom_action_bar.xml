@@ -19,5 +19,13 @@
         android:layout_alignBottom="@id/custom_actionbar_title">
         
     </LinearLayout>
+    <Button android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#0B8CB8"
+        android:textColor="#FFFFFF"
+        android:text="Refresh"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:id="@+id/custom_actionbar_refresh_button"/>
 
 </RelativeLayout>

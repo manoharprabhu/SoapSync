@@ -170,13 +170,14 @@ public class Utilities {
 		return colors[i%colors.length];
 	}
 	
-	public static void setCustomActionBar(Context context,String title){
+	public static ActionBar setCustomActionBar(Context context,String title){
 		View view = Utilities.getCustomActionBarView(context,title);
 		ActionBar actionBar = ((Activity)context).getActionBar();
 		actionBar.setDisplayShowHomeEnabled(false);
 		actionBar.setDisplayShowTitleEnabled(false);
 		actionBar.setDisplayShowCustomEnabled(true);
 		actionBar.setCustomView(view);
+		return actionBar;
 	}
 	
 	private static View getCustomActionBarView(Context context,String title){
