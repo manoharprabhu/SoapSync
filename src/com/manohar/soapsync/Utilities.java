@@ -23,15 +23,22 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.opengl.Visibility;
 import android.util.Base64;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.manohar.soapsync.activities.HomeActivity;
 import com.manohar.soapsync.pojos.Episode;
 import com.manohar.soapsync.pojos.Season;
 import com.manohar.soapsync.pojos.TVShow;
+import com.manohar.soapsync.tasks.DataDownloadTask;
 
 public class Utilities {
 	public static List<TVShow> tvShows = null;
@@ -40,8 +47,7 @@ public class Utilities {
 	private static Integer WINDOW_HEIGHT = null;
 	private static Random random = new Random(252352342434L);
 	public static final String WEBSERVICE_ENDPOINT = "http://manoharprabhu.github.io/SoapSync/showlist.json";
-    private static int[] colors = new int[]{Color.argb(180,59, 67, 77),Color.argb(180,242, 10, 37),Color.argb(180,237, 194, 0),Color.argb(180,10, 112, 10),Color.argb(180,38, 0, 252)};
-	
+    
 	private static void loadScreenDimensions(Context context) {
 		WINDOW_WIDTH = context.getResources().getDisplayMetrics().widthPixels;
 		WINDOW_HEIGHT = context.getResources().getDisplayMetrics().heightPixels;
@@ -114,9 +120,6 @@ public class Utilities {
 						 newShowData.get(i).getSeasons().get(j).getEpisodes().get(k).setEpisodeWatched(
 								 oldShowData.get(i).getSeasons().get(j).getEpisodes().get(k).isEpisodeWatched()
 						 );
-						 newShowData.get(i).getSeasons().get(j).getEpisodes().get(k).setPlotVisible(
-								 oldShowData.get(i).getSeasons().get(j).getEpisodes().get(k).isPlotVisible()
-						 );
 						  
 					 }
 				 }
@@ -162,15 +165,8 @@ public class Utilities {
 
 	}
 	
-	public static int pickRandomColor(){
-		return colors[random.nextInt(colors.length)];
-	}
 	
-	public static int pickColorAtIndex(int i){
-		return colors[i%colors.length];
-	}
-	
-	public static ActionBar setCustomActionBar(Context context,String title){
+	private static ActionBar setCustomActionBar(Context context,String title){
 		View view = Utilities.getCustomActionBarView(context,title);
 		ActionBar actionBar = ((Activity)context).getActionBar();
 		actionBar.setDisplayShowHomeEnabled(false);
@@ -184,7 +180,34 @@ public class Utilities {
 		LayoutInflater layoutInflater = LayoutInflater.from(context);
 		View view = layoutInflater.inflate(R.layout.custom_action_bar, null);
 		((TextView)view.findViewById(R.id.custom_actionbar_title)).setText(title);
+		
+		if(DataDownloadTask.isTaskRunning()){
+			((Button)view.findViewById(R.id.custom_actionbar_refresh_button)).setText("Refreshing...");
+		} else {
+			((Button)view.findViewById(R.id.custom_actionbar_refresh_button)).setText("Refresh");
+		}
+		
 		return view;
+	}
+	
+	public static void setActionBarAndListeners(final Context context,final BaseAdapter adapter,final GridView gridView, final String title){
+		final ActionBar actionBar = setCustomActionBar(context, title);
+		if(!(context instanceof HomeActivity)){
+			((Button)actionBar.getCustomView().findViewById(R.id.custom_actionbar_refresh_button)).setVisibility(View.GONE);
+		} else {
+		((Button)actionBar.getCustomView().findViewById(R.id.custom_actionbar_refresh_button)).setOnTouchListener(new View.OnTouchListener() {
+				
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					if(event.getAction() == MotionEvent.ACTION_UP) {
+						if(!DataDownloadTask.isTaskRunning()) {
+							(DataDownloadTask.getInstance(context, adapter, gridView, actionBar)).execute();
+						}
+					}
+					return true;
+				}
+			});
+		}
 	}
 
 }

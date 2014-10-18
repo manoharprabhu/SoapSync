@@ -28,19 +28,10 @@
         android:id="@+id/episode_name"/>
     </LinearLayout>
     
-    <Button android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_margin="10dp"
-        android:textColor="#FFFFFF"
-        android:text="Show Plot"
-        android:background="#0B8CB8"
-        android:id="@+id/episode_show_plot_button"
-        />
     <TextView android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="5dp"
         android:layout_margin="2dp"
-        android:visibility="gone"
         android:id="@+id/episode_description"/>
     
     <LinearLayout android:layout_width="match_parent"

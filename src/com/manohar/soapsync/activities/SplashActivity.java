@@ -22,7 +22,9 @@ public class SplashActivity extends Activity {
 
 		Utilities.tvShows = Utilities.loadTVShowDataFromDisk(this);
 		if (Utilities.tvShows == null) {
-			(new DataDownloadTask(this,null,null)).execute();
+			if(!DataDownloadTask.isTaskRunning()) {
+				(DataDownloadTask.getInstance(this, null, null, null)).execute();
+			}
 		} else {
 			((TextView) findViewById(R.id.splash_load_status))
 					.setText("Loading data from your phone.");

@@ -2,31 +2,27 @@ package com.manohar.soapsync.activities;
 
 import org.json.JSONException;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 
 import com.manohar.soapsync.R;
 import com.manohar.soapsync.Utilities;
 import com.manohar.soapsync.adapters.TVShowListAdapter;
-import com.manohar.soapsync.tasks.DataDownloadTask;
 
 public class HomeActivity extends Activity {
 
 	private GridView gridView;
-	private ActionBar actionBar;
-	private TVShowListAdapter tvShowListAdapter;
+	private BaseAdapter adapter;
+	
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		overridePendingTransition(R.anim.enter_in, R.anim.enter_out);
 		setContentView(R.layout.activity_home);
-		actionBar = Utilities.setCustomActionBar(this, "Home");
 		
 		gridView = (GridView) findViewById(R.id.gridView);
 
@@ -36,17 +32,7 @@ public class HomeActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		((Button)actionBar.getCustomView().findViewById(R.id.custom_actionbar_refresh_button)).setOnTouchListener(new View.OnTouchListener() {
-			
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				if(event.getAction() == MotionEvent.ACTION_UP) {
-					(new DataDownloadTask(HomeActivity.this,tvShowListAdapter,gridView)).execute();
-				}
-				return true;
-			}
-		});
+		Utilities.setActionBarAndListeners(this, adapter, gridView, "Home");
 		
 	}
 
@@ -60,8 +46,8 @@ public class HomeActivity extends Activity {
 
 	
 	public void populateScreen() throws JSONException {
-		tvShowListAdapter = new TVShowListAdapter(Utilities.tvShows, this);
-		gridView.setAdapter(tvShowListAdapter);	
+		adapter = new TVShowListAdapter(Utilities.tvShows, this);
+		gridView.setAdapter(adapter);	
 	}
 	
 	@Override

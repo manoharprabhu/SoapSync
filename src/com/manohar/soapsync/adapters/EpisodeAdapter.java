@@ -60,18 +60,7 @@ public class EpisodeAdapter extends BaseAdapter {
 		((TextView) view.findViewById(R.id.episode_number)).setText(String
 				.valueOf(id + 1));
 
-		if (Utilities.tvShows.get(selectedShow).getSeasons()
-				.get(SelectedSeason).getEpisodes().get(id).isPlotVisible()) {
-			((TextView) view.findViewById(R.id.episode_description))
-					.setVisibility(View.VISIBLE);
-			((Button) view.findViewById(R.id.episode_show_plot_button))
-					.setVisibility(View.GONE);
-		} else {
-			((TextView) view.findViewById(R.id.episode_description))
-					.setVisibility(View.GONE);
-			((Button) view.findViewById(R.id.episode_show_plot_button))
-					.setVisibility(View.VISIBLE);
-		}
+		
 
 		((CheckBox) view.findViewById(R.id.episode_watched_checkbox))
 				.setChecked(Utilities.tvShows.get(selectedShow).getSeasons()
@@ -81,23 +70,7 @@ public class EpisodeAdapter extends BaseAdapter {
 		final TextView plotView = ((TextView) view
 				.findViewById(R.id.episode_description));
 
-		((Button) view.findViewById(R.id.episode_show_plot_button))
-				.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-
-						((Button) v).setVisibility(View.GONE);
-						((Button) v).setOnClickListener(null);
-						plotView.setVisibility(View.VISIBLE);
-						Utilities.tvShows.get(selectedShow).getSeasons()
-								.get(SelectedSeason).getEpisodes().get(id)
-								.setPlotVisible(true);
-						Utilities.overwriteTVShowDataOnDisk(EpisodeAdapter.this.context, Utilities.tvShows);
-					}
-				});
-
-		((CheckBox) view.findViewById(R.id.episode_watched_checkbox))
+				((CheckBox) view.findViewById(R.id.episode_watched_checkbox))
 				.setOnClickListener(new View.OnClickListener() {
 
 					@Override

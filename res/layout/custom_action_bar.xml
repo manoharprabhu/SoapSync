@@ -4,13 +4,17 @@
     android:layout_height="wrap_content"
     android:background="#0B8CB8">
 	
+    
     <TextView android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:textSize="24sp"
         android:textColor="#FFFFFF"
-        android:layout_alignParentLeft="true"
-        android:gravity="center"
+        android:gravity="center_vertical"
+        android:text="Home"
+        android:layout_marginLeft="5dp"
+        android:layout_centerVertical="true"
         android:textStyle="bold"
+        android:layout_alignParentLeft="true"
         android:id="@+id/custom_actionbar_title"/>
     
     <LinearLayout android:layout_width="match_parent"
@@ -24,7 +28,9 @@
         android:background="#0B8CB8"
         android:textColor="#FFFFFF"
         android:text="Refresh"
-        android:layout_marginRight="10dp"
+        android:layout_alignBaseline="@id/custom_actionbar_title"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"     
         android:layout_alignParentRight="true"
         android:id="@+id/custom_actionbar_refresh_button"/>
 
