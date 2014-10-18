@@ -150,7 +150,8 @@ public class DataDownloadTask extends AsyncTask<Void, Void, Void> {
 						episode.setEpisodeId(Integer.parseInt(episodeKey));
 						episode.setPlot(episodeJson.getString("Plot"));
 						episode.setEpisodeName(episodeJson.getString("EpisodeName"));
-						
+						episode.setOriginalAiredDate(episodeJson.getString("OriginalAiredDate"));
+						episode.setImdbRating(episodeJson.getString("ImdbRating"));
 						season.getEpisodes().add(episode);
 						
 					}

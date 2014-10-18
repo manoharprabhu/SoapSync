@@ -28,11 +28,55 @@
         android:id="@+id/episode_name"/>
     </LinearLayout>
     
+     
     <TextView android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="5dp"
         android:layout_margin="2dp"
         android:id="@+id/episode_description"/>
+    
+        
+            
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        
+   <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#0B8CB8"
+        android:layout_marginLeft="10dp"
+        android:text="Original Aired Date:"/>
+   
+   <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#898989"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/episode_originalaireddate_text"
+        />
+    
+    
+</LinearLayout>
+
+    
+        <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        
+   <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#0B8CB8"
+        android:layout_marginLeft="10dp"
+        android:text="IMDB Rating:"/>
+   
+   <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#898989"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/episode_imdbrating_text"
+        />
+    
+    
+</LinearLayout>
     
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -41,7 +85,7 @@
    <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/episode_checked_text"
-        android:textColor="#CDCDCD"
+        android:textColor="#0B8CB8"
         android:layout_marginLeft="10dp"
         android:text="Watched?"/>
     

@@ -60,7 +60,14 @@ public class EpisodeAdapter extends BaseAdapter {
 		((TextView) view.findViewById(R.id.episode_number)).setText(String
 				.valueOf(id + 1));
 
+		((TextView) view.findViewById(R.id.episode_originalaireddate_text)).setText(Utilities.tvShows.get(selectedShow).getSeasons()
+						.get(SelectedSeason).getEpisodes().get(id)
+						.getOriginalAiredDate());
 		
+		
+		((TextView) view.findViewById(R.id.episode_imdbrating_text)).setText(Utilities.tvShows.get(selectedShow).getSeasons()
+				.get(SelectedSeason).getEpisodes().get(id)
+				.getImdbRating());
 
 		((CheckBox) view.findViewById(R.id.episode_watched_checkbox))
 				.setChecked(Utilities.tvShows.get(selectedShow).getSeasons()

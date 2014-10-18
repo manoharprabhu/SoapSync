@@ -11,8 +11,25 @@ public class Episode implements Serializable {
 	private int episodeId;
 	private String plot;
 	private String episodeName;
+	private String originalAiredDate;
+	private String imdbRating;
+	
 	
 	private boolean isEpisodeWatched;
+	
+	
+	public String getOriginalAiredDate() {
+		return originalAiredDate;
+	}
+	public void setOriginalAiredDate(String originalAiredDate) {
+		this.originalAiredDate = originalAiredDate;
+	}
+	public String getImdbRating() {
+		return imdbRating;
+	}
+	public void setImdbRating(String imdbRating) {
+		this.imdbRating = imdbRating;
+	}
 	
 	
 	public boolean isEpisodeWatched() {
