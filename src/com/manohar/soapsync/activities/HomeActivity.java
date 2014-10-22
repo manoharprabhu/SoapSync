@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.manohar.soapsync.R;
 import com.manohar.soapsync.Utilities;
@@ -15,8 +16,8 @@ public class HomeActivity extends Activity {
 
 	private GridView gridView;
 	private BaseAdapter adapter;
-	
-	
+	private Thread exitCounterThread;
+	private boolean backPressed = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,29 @@ public class HomeActivity extends Activity {
 	
 	@Override
 	public void onBackPressed(){
-		super.onBackPressed();
+		if(backPressed == true) {
+			super.onBackPressed();
+		} else {
+			Toast.makeText(this, "Press again to quit", Toast.LENGTH_SHORT).show();
+		}
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					backPressed = true;
+					Thread.sleep(1500);
+					backPressed = false;
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}).start();
+		
+		
+		
 		overridePendingTransition(R.anim.quit_in, R.anim.quit_out);
 		
 	}
