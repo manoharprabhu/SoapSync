@@ -1,10 +1,11 @@
 package com.manohar.soapsync;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,8 +23,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.opengl.Visibility;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -32,11 +31,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.manohar.soapsync.activities.HomeActivity;
-import com.manohar.soapsync.pojos.Episode;
-import com.manohar.soapsync.pojos.Season;
 import com.manohar.soapsync.pojos.TVShow;
 import com.manohar.soapsync.tasks.DataDownloadTask;
 
@@ -46,7 +42,7 @@ public class Utilities {
 	private static Integer WINDOW_WIDTH = null;
 	private static Integer WINDOW_HEIGHT = null;
 	private static Random random = new Random(252352342434L);
-	public static final String WEBSERVICE_ENDPOINT = "http://manoharprabhu.github.io/SoapSync/showlist.json";
+	public static final String WEBSERVICE_ENDPOINT = "http://manoharprabhu.github.io/SoapSync/showlist_gson.json";
     
 	private static void loadScreenDimensions(Context context) {
 		WINDOW_WIDTH = context.getResources().getDisplayMetrics().widthPixels;
@@ -208,6 +204,36 @@ public class Utilities {
 				}
 			});
 		}
+	}
+	
+	public static void appendLog(String text)
+	{       
+	   File logFile = new File("sdcard/log.file");
+	   if (!logFile.exists())
+	   {
+	      try
+	      {
+	         logFile.createNewFile();
+	      } 
+	      catch (IOException e)
+	      {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }
+	   }
+	   try
+	   {
+	      //BufferedWriter for performance, true to set append to file flag
+	      BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true)); 
+	      buf.append(text);
+	      buf.newLine();
+	      buf.close();
+	   }
+	   catch (IOException e)
+	   {
+	      // TODO Auto-generated catch block
+	      e.printStackTrace();
+	   }
 	}
 
 }

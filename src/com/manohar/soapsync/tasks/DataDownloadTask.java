@@ -1,8 +1,11 @@
 package com.manohar.soapsync.tasks;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +22,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.manohar.soapsync.R;
 import com.manohar.soapsync.Utilities;
 import com.manohar.soapsync.activities.HomeActivity;
@@ -100,7 +104,10 @@ public class DataDownloadTask extends AsyncTask<Void, Void, Void> {
 			((Button)actionBar.getCustomView().findViewById(R.id.custom_actionbar_refresh_button)).setText("Refresh");
 		}
 		
-		if (this.result == null && this.context instanceof SplashActivity) {
+		//Network error for main screen
+		if (this.result == null) {
+			
+			if(this.context instanceof SplashActivity) {
 			((TextView) ((SplashActivity) this.context)
 					.findViewById(R.id.splash_load_status))
 					.setText("Problem with network.Couldn't load data.");
@@ -108,60 +115,22 @@ public class DataDownloadTask extends AsyncTask<Void, Void, Void> {
 			(((SplashActivity) this.context)
 					.findViewById(R.id.splash_load_progress))
 					.setVisibility(View.INVISIBLE);
+			} else {
+				Toast.makeText(this.context, "Unable to fetch data", Toast.LENGTH_SHORT).show();
+				
+			}
+			dataDownloadTask = null;
 			return;
 		}
 		
 		try {
 			Utilities.tvShows = new ArrayList<TVShow>();
 			
-			JSONObject jsonObject = new JSONObject(result);
-			Iterator<String> it = jsonObject.keys();
-			while (it.hasNext()) {
-				String key = it.next();
-				JSONObject obj = (JSONObject) jsonObject.get(key);
-				
-				TVShow tvShow = new TVShow();
-				tvShow.setSeasons(new ArrayList<Season>());
-				tvShow.setShowId(Integer.parseInt(key));
-				tvShow.setShowName(obj.getString("Name"));
-				tvShow.setShowThumbNail(obj.getString("Image"));
-				tvShow.setSummary(obj.getString("Summary"));
-				tvShow.setShowColor(Color.parseColor(obj.getString("Color")));
-				
-				
-				JSONObject seasons = (JSONObject)obj.get("Seasons");
-				Iterator<String> seasonIterator = seasons.keys();
-				while(seasonIterator.hasNext()){
-					String seasonKey = seasonIterator.next();
-					
-					Season season = new Season();
-					season.setEpisodes(new ArrayList<Episode>());
-					season.setSeasonId(Integer.parseInt(seasonKey));
-					
-					JSONObject episodes = ((JSONObject)((JSONObject)seasons.get(seasonKey)).get("Episodes"));
-					Iterator<String> episodesIterator = episodes.keys();
-					
-					while(episodesIterator.hasNext()){
-						String episodeKey = episodesIterator.next();
-						
-						JSONObject episodeJson = (JSONObject)episodes.get(episodeKey);
-						
-						Episode episode = new Episode();
-						episode.setEpisodeId(Integer.parseInt(episodeKey));
-						episode.setPlot(episodeJson.getString("Plot"));
-						episode.setEpisodeName(episodeJson.getString("EpisodeName"));
-						episode.setOriginalAiredDate(episodeJson.getString("OriginalAiredDate"));
-						episode.setImdbRating(episodeJson.getString("ImdbRating"));
-						season.getEpisodes().add(episode);
-						
-					}
-					Collections.sort(season.getEpisodes(),new EpisodeComparator());
-					tvShow.getSeasons().add(season);					
-				}
-				Collections.sort(tvShow.getSeasons(),new SeasonComparator());
-				Utilities.tvShows.add(tvShow);
-			}
-			Collections.sort(Utilities.tvShows,new TVShowComparator());
+			Gson gson = new Gson();
+			TVShow[] lists =  gson.fromJson(result, TVShow[].class);
+			Utilities.tvShows =  Arrays.asList(lists);
+						Collections.sort(Utilities.tvShows,new TVShowComparator());
+			
 			Utilities.saveTVShowDataToDisk(this.context, Utilities.tvShows);
 
 			if(this.adapter != null ) {
@@ -185,7 +154,7 @@ public class DataDownloadTask extends AsyncTask<Void, Void, Void> {
 			Toast.makeText(this.context, "Finished refreshing", Toast.LENGTH_SHORT).show();
 			dataDownloadTask = null;
 
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
