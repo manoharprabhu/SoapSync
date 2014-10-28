@@ -40,9 +40,7 @@ public class HomeActivity extends Activity {
 	private void loadTVShowData() throws JSONException {
 		
 		Utilities.tvShows = Utilities.loadTVShowDataFromDisk(this);
-		this.populateScreen();
-		
-		
+		this.populateScreen();	
 	}
 
 	
@@ -55,28 +53,25 @@ public class HomeActivity extends Activity {
 	public void onBackPressed(){
 		if(backPressed == true) {
 			super.onBackPressed();
+			overridePendingTransition(R.anim.quit_in, R.anim.quit_out);
 		} else {
+		
 			Toast.makeText(this, "Press again to quit", Toast.LENGTH_SHORT).show();
-		}
-		
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				try {
-					backPressed = true;
-					Thread.sleep(1500);
-					backPressed = false;
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					try {
+						backPressed = true;
+						Thread.sleep(1500);
+						backPressed = false;
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
-			}
-		}).start();
-		
-		
-		
-		overridePendingTransition(R.anim.quit_in, R.anim.quit_out);
+			}).start();
+		}
 		
 	}
 	
